@@ -1,0 +1,1 @@
+insert into user1 values(1, 'u1');
