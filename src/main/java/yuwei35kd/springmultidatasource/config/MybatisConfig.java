@@ -9,6 +9,8 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -21,6 +23,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 @Configuration
 @MapperScan("yuwei35kd.springmultidatasource.mapper")
 public class MybatisConfig {
+	private static final Logger LOG = LoggerFactory.getLogger(MybatisConfig.class);
 	@Bean
 	@Qualifier("source")
 	@ConfigurationProperties(prefix="spring.datasource.source")
@@ -70,6 +73,7 @@ public class MybatisConfig {
     	Map<Object,Object> targetDataSources = new HashMap<Object,Object>();
     	targetDataSources.put("source1",dataSource1);
     	targetDataSources.put("source2",dataSource2);
+    	LOG.info("<====================================="+targetDataSources.toString()+"=================================>");
     	dynamicDataSource.setTargetDataSources(targetDataSources);
     	dynamicDataSource.setDefaultTargetDataSource(dataSource1);
     	return dynamicDataSource;
